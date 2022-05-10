@@ -27,8 +27,12 @@ namespace BCS_426_Mod_9
                 switch (option)
                 {
                     case 1:
-                        //initialize students list and fill with data
+                        Console.WriteLine("User selected option 2: Student data with List<T>!\n");
+
+                        //initialize students list, fill with data
                         List<Student> students = new List<Student>();
+                        List<Student> studentsCopy1 = new List<Student>();
+                        List<Student> studentsCopy2 = new List<Student>();
                         students.Add(new Student(2000, "Mike Smith", "Freshman", "NY"));
                         students.Add(new Student(4444, "Alice Smith", "Sophomore", "NC"));
                         students.Add(new Student(2002, "Tom Brown", "Freshman", "NY"));
@@ -37,26 +41,48 @@ namespace BCS_426_Mod_9
                         students.Add(new Student(4004, "NO_NAME", "Junior", "NJ"));
                         students.Add(new Student(1000, "NO_NAME", "Freshman", "NJ"));
                         students.Add(new Student(1000, "NO_NAME", "Freshman", "NJ"));
-
-                        //first search by status
-                        List<Student> studentsFreshmen = (List<Student>)students.ToLookup(s => s._Status == "Freshman");
-                        
-                        //second search by state
-                        List<Student> studentsNY = (List<Student>)students.ToLookup(s => s._State == "NY");
-
-                        //print lists
+                        Console.WriteLine("List of students...");
                         foreach (Student s in students)
                         {
+                            //print list
                             Console.WriteLine(s);
+                            //copy list
+                            studentsCopy1.Add(new Student(s));
+                            studentsCopy2.Add(new Student(s));
                         }
-                        foreach (Student s in studentsFreshmen)
+                        Console.WriteLine("\n");
+
+                        //first search by status
+                            //List<Student> studentsFreshmen = (List<Student>)students.ToLookup(s => s._Status == "Freshman");
+                        int indexFreshmanStudent;
+                        int studentsCapacity = students.Count;
+                        List<Student> studentsFreshmen = new List<Student>();
+
+                        for (int i = 0; i < studentsCapacity-1; i++)
                         {
-                            Console.WriteLine(s);
+                            indexFreshmanStudent = studentsCopy1.FindIndex(new FindStudentStatus("Freshman").FindStudentStatusPredicate);
+                            studentsFreshmen.Add(new Student(students[indexFreshmanStudent]));
+                            studentsCopy1.RemoveAt(indexFreshmanStudent);
                         }
-                        foreach (Student s in studentsNY)
+                        
+                        Console.WriteLine("List of freshmen students...");
+                        foreach (Student s in studentsFreshmen) Console.WriteLine(s);
+                        Console.WriteLine("\n");
+
+                        //second search by state
+                            //List<Student> studentsNY = (List<Student>)students.ToLookup(s => s._State == "NY");
+                        int indexNYStudent;
+                        List<Student> studentsNY = new List<Student>();
+                        for (int i = 0; i < studentsCapacity; i++)
                         {
-                            Console.WriteLine(s);
+                            indexNYStudent = studentsCopy2.FindIndex(new FindStudentState("NY").FindStudentStatePredicate);
+                            studentsFreshmen.Add(new Student(students[indexNYStudent]));
+                            studentsCopy2.RemoveAt(indexNYStudent);
                         }
+                        Console.WriteLine("List of NY students...");
+                        foreach (Student s in studentsNY) Console.WriteLine(s);
+                        Console.WriteLine("\n");
+
                         break;
                     case 2:
                         break;
@@ -86,6 +112,19 @@ namespace BCS_426_Mod_9
                 _State = state;
             }
 
+            public Student(Student newStudent)
+            {
+                _ID = newStudent._ID;
+                _Name = newStudent._Name;
+                _Status = newStudent._Status;
+                _State = newStudent._State;
+            }
+
+            public override string ToString()
+            {
+                return _ID + " " + _Name + " " + _Status + " " + _State;
+            }
+
             public IEnumerator<Student> GetEnumerator()
             {
                 throw new NotImplementedException();
@@ -95,6 +134,24 @@ namespace BCS_426_Mod_9
             {
                 throw new NotImplementedException();
             }
+        }
+
+        public class FindStudentStatus
+        {
+            private string _Status;
+
+            public FindStudentStatus(string status) => _Status = status;
+
+            public bool FindStudentStatusPredicate(Student student) => student?._Status == _Status;
+        }
+
+        public class FindStudentState
+        {
+            private string _State;
+
+            public FindStudentState(string state) => _State = state;
+
+            public bool FindStudentStatePredicate(Student student) => student?._Status == _State;
         }
     }
 }
