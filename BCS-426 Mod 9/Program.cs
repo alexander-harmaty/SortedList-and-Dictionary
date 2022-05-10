@@ -27,22 +27,21 @@ namespace BCS_426_Mod_9
                 switch (option)
                 {
                     case 1:
-                        Console.WriteLine("User selected option 2: Student data with List<T>!\n");
+                        Console.WriteLine("User selected option 1: Student data with List<T>!\n");
 
                         //initialize students list, fill with data
-                        List<Student> students = new List<Student>();
+                        List<Student> studentsList = new List<Student>();
                         List<Student> studentsCopy1 = new List<Student>();
                         List<Student> studentsCopy2 = new List<Student>();
-                        students.Add(new Student(2000, "Mike Smith", "Freshman", "NY"));
-                        students.Add(new Student(4444, "Alice Smith", "Sophomore", "NC"));
-                        students.Add(new Student(2002, "Tom Brown", "Freshman", "NY"));
-                        students.Add(new Student(3000, "Sarah Smith", "Senior", "NY"));
-                        students.Add(new Student(1001, "Samantha Green", "Junior", "MD"));
-                        students.Add(new Student(4004, "NO_NAME", "Junior", "NJ"));
-                        students.Add(new Student(1000, "NO_NAME", "Freshman", "NJ"));
-                        students.Add(new Student(1000, "NO_NAME", "Freshman", "NJ"));
+                        studentsList.Add(new Student(2000, "Mike Smith", "Freshman", "NY"));
+                        studentsList.Add(new Student(4444, "Alice Smith", "Sophomore", "NC"));
+                        studentsList.Add(new Student(2002, "Tom Brown", "Freshman", "NY"));
+                        studentsList.Add(new Student(3000, "Sarah Smith", "Senior", "NY"));
+                        studentsList.Add(new Student(1001, "Samantha Green", "Junior", "MD"));
+                        studentsList.Add(new Student(4004, "NO_NAME", "Junior", "NJ"));
+                        studentsList.Add(new Student(1000, "NO_NAME", "Freshman", "NJ"));
                         Console.WriteLine("List of students...");
-                        foreach (Student s in students)
+                        foreach (Student s in studentsList)
                         {
                             //print list
                             Console.WriteLine(s);
@@ -54,37 +53,64 @@ namespace BCS_426_Mod_9
 
                         //first search by status
                             //List<Student> studentsFreshmen = (List<Student>)students.ToLookup(s => s._Status == "Freshman");
+                        /**
                         int indexFreshmanStudent;
-                        int studentsCapacity = students.Count;
+                        int studentsCapacity = studentsList.Count;
                         List<Student> studentsFreshmen = new List<Student>();
 
-                        for (int i = 0; i < studentsCapacity-1; i++)
+                        foreach (Student s in studentsList)
                         {
                             indexFreshmanStudent = studentsCopy1.FindIndex(new FindStudentStatus("Freshman").FindStudentStatusPredicate);
-                            studentsFreshmen.Add(new Student(students[indexFreshmanStudent]));
-                            studentsCopy1.RemoveAt(indexFreshmanStudent);
+                            if (indexFreshmanStudent < studentsList.Count)
+                            {
+                                studentsFreshmen.Add(new Student(studentsList[indexFreshmanStudent]));
+                                studentsCopy1.RemoveAt(indexFreshmanStudent);
+                            }
+                            
                         }
                         
                         Console.WriteLine("List of freshmen students...");
                         foreach (Student s in studentsFreshmen) Console.WriteLine(s);
                         Console.WriteLine("\n");
+                        **/
 
                         //second search by state
                             //List<Student> studentsNY = (List<Student>)students.ToLookup(s => s._State == "NY");
+                        /**
                         int indexNYStudent;
                         List<Student> studentsNY = new List<Student>();
                         for (int i = 0; i < studentsCapacity; i++)
                         {
                             indexNYStudent = studentsCopy2.FindIndex(new FindStudentState("NY").FindStudentStatePredicate);
-                            studentsFreshmen.Add(new Student(students[indexNYStudent]));
+                            studentsFreshmen.Add(new Student(studentsList[indexNYStudent]));
                             studentsCopy2.RemoveAt(indexNYStudent);
                         }
                         Console.WriteLine("List of NY students...");
                         foreach (Student s in studentsNY) Console.WriteLine(s);
                         Console.WriteLine("\n");
-
+                        **/
                         break;
                     case 2:
+                        Console.WriteLine("User selected option 1: Student data with List<T>!\n");
+
+                        //initialize students list, fill with data
+                        SortedList<int, Student> studentsSortedList = new SortedList<int, Student>();
+                        studentsSortedList.Add(2000, new Student(2000, "Mike Smith", "Freshman", "NY"));
+                        studentsSortedList.Add(4444, new Student(4444, "Alice Smith", "Sophomore", "NC"));
+                        studentsSortedList.Add(2002, new Student(2002, "Tom Brown", "Freshman", "NY"));
+                        studentsSortedList.Add(3000, new Student(3000, "Sarah Smith", "Senior", "NY"));
+                        studentsSortedList.Add(1001, new Student(1001, "Samantha Green", "Junior", "MD"));
+                        studentsSortedList.Add(4004, new Student(4004, "NO_NAME", "Junior", "NJ"));
+                        studentsSortedList.Add(1000, new Student(1000, "NO_NAME", "Freshman", "NJ"));
+
+                        Console.WriteLine("List of students...");
+                        foreach (Student s in studentsSortedList.Values)
+                        {
+                            //print list
+                            Console.WriteLine(s);
+                        }
+                        Console.WriteLine("\n");
+
                         break;
                     case 3:
                         break;
