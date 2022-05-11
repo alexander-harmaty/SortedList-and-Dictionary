@@ -114,21 +114,24 @@ namespace BCS_426_Mod_9
                         Console.WriteLine("\n");
 
                         //list all student data sorted by ID
-                        //List<KeyValuePair<int, Student>> sortList = studentsDictionary.ToList();
-                        //var studentsSortedDictionary = from entry in studentsDictionary orderedby entry.Key ascending select entry;
-
-
                         Console.WriteLine("List of students sorted by ID...");
-                        //foreach (Student s in studentsSortedList.Values) Console.WriteLine(s);
+                        var studentsSortedID = from data in studentsDictionary orderby data.Key ascending select data;
+                        foreach (KeyValuePair<int, Student> kvp in studentsSortedID) Console.WriteLine(kvp.Value);
                         Console.WriteLine("\n");
 
-                        /**
-                         * list all student data sorted by ID
-                         * Ask the user for entering an id to search
-                         * then look up the id in the collection. 
-                         * If id is found, then display all of the data for the student
-                         * if not, display an appropriate “not found” message
-                         **/
+                        //search for user entered ID
+                        Console.WriteLine("Please enter an ID to search for...");
+                        int searchDictionaryID = int.Parse(Console.ReadLine());
+                        Console.WriteLine("\nResults of ID search: " + searchDictionaryID);
+                        
+                        try
+                        {
+                            Console.WriteLine(studentsDictionary[searchDictionaryID] + "\n");
+                        }
+                        catch (KeyNotFoundException e)
+                        {
+                            Console.WriteLine("No results found! Please try again.");
+                        }
 
                         break;
 
