@@ -17,6 +17,7 @@ namespace BCS_426_Mod_9
             
             while (programRunning)
             {
+                Console.WriteLine("______________________________________________");
                 Console.WriteLine("MENU\n____\n" +
                     "1) Student data with List<T>\n" +
                     "2) Student data with SortedList<TKey,TValue>\n" +
@@ -27,6 +28,7 @@ namespace BCS_426_Mod_9
                 switch (option)
                 {
                     case 1:
+
                         Console.WriteLine("User selected option 1: Student data with List<T>!\n");
 
                         //initialize students list, fill with data
@@ -40,19 +42,27 @@ namespace BCS_426_Mod_9
                         studentsList.Add(new Student(1001, "Samantha Green", "Junior", "MD"));
                         studentsList.Add(new Student(4004, "NO_NAME", "Junior", "NJ"));
                         studentsList.Add(new Student(1000, "NO_NAME", "Freshman", "NJ"));
+
+                        //list all student data
                         Console.WriteLine("List of students...");
+                        foreach (Student s in studentsList) Console.WriteLine(s);
+                        Console.WriteLine("\n");
+
+                        //copy list
                         foreach (Student s in studentsList)
                         {
-                            //print list
-                            Console.WriteLine(s);
-                            //copy list
                             studentsCopy1.Add(new Student(s));
                             studentsCopy2.Add(new Student(s));
                         }
-                        Console.WriteLine("\n");
+
+                        /**
+                         *  Utilize ToLookup extension method to list all the students
+                         *  -with freshman status
+                         *  -from NY state
+                        **/
 
                         //first search by status
-                            //List<Student> studentsFreshmen = (List<Student>)students.ToLookup(s => s._Status == "Freshman");
+                        //List<Student> studentsFreshmen = (List<Student>)students.ToLookup(s => s._Status == "Freshman");
                         /**
                         int indexFreshmanStudent;
                         int studentsCapacity = studentsList.Count;
@@ -75,7 +85,7 @@ namespace BCS_426_Mod_9
                         **/
 
                         //second search by state
-                            //List<Student> studentsNY = (List<Student>)students.ToLookup(s => s._State == "NY");
+                        //List<Student> studentsNY = (List<Student>)students.ToLookup(s => s._State == "NY");
                         /**
                         int indexNYStudent;
                         List<Student> studentsNY = new List<Student>();
@@ -90,8 +100,10 @@ namespace BCS_426_Mod_9
                         Console.WriteLine("\n");
                         **/
                         break;
+
                     case 2:
-                        Console.WriteLine("User selected option 1: Student data with List<T>!\n");
+
+                        Console.WriteLine("User selected option 2: Student data with SortedList<TKey,TValue>!\n");
 
                         //initialize students list, fill with data
                         SortedList<int, Student> studentsSortedList = new SortedList<int, Student>();
@@ -103,20 +115,62 @@ namespace BCS_426_Mod_9
                         studentsSortedList.Add(4004, new Student(4004, "NO_NAME", "Junior", "NJ"));
                         studentsSortedList.Add(1000, new Student(1000, "NO_NAME", "Freshman", "NJ"));
 
-                        Console.WriteLine("List of students...");
-                        foreach (Student s in studentsSortedList.Values)
-                        {
-                            //print list
-                            Console.WriteLine(s);
-                        }
+                        //list all student data sorted by ID
+                        Console.WriteLine("List of students sorted by ID...");
+                        foreach (Student s in studentsSortedList.Values) Console.WriteLine(s);
                         Console.WriteLine("\n");
 
+                        //search for user entered ID
+                        Console.WriteLine("Please enter an ID to search for...");
+                        int searchSortedID = int.Parse(Console.ReadLine());
+                        Console.WriteLine("\nResults of ID search: " + searchSortedID);
+
+                        try
+                        {
+                            Student searchSortedValue = (Student)studentsSortedList[searchSortedID];
+                            Console.WriteLine(searchSortedValue + "\n");
+                        }
+                        catch (KeyNotFoundException e)
+                        {
+                            Console.WriteLine("No results found! Please try again.");
+                        }
+
                         break;
+
                     case 3:
+
+                        Console.WriteLine("User selected option 3: Student data with Dictionary<TKey,TValue>!\n");
+
+                        //initialize students list, fill with data
+                        Dictionary<int, Student> studentsDictionary = new Dictionary<int, Student>();
+                        studentsDictionary.Add(2000, new Student(2000, "Mike Smith", "Freshman", "NY"));
+                        studentsDictionary.Add(4444, new Student(4444, "Alice Smith", "Sophomore", "NC"));
+                        studentsDictionary.Add(2002, new Student(2002, "Tom Brown", "Freshman", "NY"));
+                        studentsDictionary.Add(3000, new Student(3000, "Sarah Smith", "Senior", "NY"));
+                        studentsDictionary.Add(1001, new Student(1001, "Samantha Green", "Junior", "MD"));
+                        studentsDictionary.Add(4004, new Student(4004, "NO_NAME", "Junior", "NJ"));
+                        studentsDictionary.Add(1000, new Student(1000, "NO_NAME", "Freshman", "NJ"));
+                        
+                        //print list
+                        Console.WriteLine("List of students...");
+                        foreach (Student s in studentsDictionary.Values) Console.WriteLine(s);
+                        Console.WriteLine("\n");
+
+                        /**
+                         * list all student data sorted by ID
+                         * Ask the user for entering an id to search
+                         * then look up the id in the collection. 
+                         * If id is found, then display all of the data for the student
+                         * if not, display an appropriate “not found” message
+                         **/
+
                         break;
+
                     case 4:
+
                         programRunning = false;
                         break;
+
                     default:
                         break;
                 }
