@@ -33,8 +33,6 @@ namespace BCS_426_Mod_9
 
                         //initialize students list, fill with data
                         List<Student> studentsList = new List<Student>();
-                        List<Student> studentsCopy1 = new List<Student>();
-                        List<Student> studentsCopy2 = new List<Student>();
                         studentsList.Add(new Student(2000, "Mike Smith", "Freshman", "NY"));
                         studentsList.Add(new Student(4444, "Alice Smith", "Sophomore", "NC"));
                         studentsList.Add(new Student(2002, "Tom Brown", "Freshman", "NY"));
@@ -44,61 +42,20 @@ namespace BCS_426_Mod_9
                         studentsList.Add(new Student(1000, "NO_NAME", "Freshman", "NJ"));
 
                         //list all student data
-                        Console.WriteLine("List of students...");
+                        Console.WriteLine("List of unsorted students...");
                         foreach (Student s in studentsList) Console.WriteLine(s);
                         Console.WriteLine("\n");
 
-                        //copy list
-                        foreach (Student s in studentsList)
-                        {
-                            studentsCopy1.Add(new Student(s));
-                            studentsCopy2.Add(new Student(s));
-                        }
-
-                        /**
-                         *  Utilize ToLookup extension method to list all the students
-                         *  -with freshman status
-                         *  -from NY state
-                        **/
-
                         //first search by status
-                        //List<Student> studentsFreshmen = (List<Student>)students.ToLookup(s => s._Status == "Freshman");
-                        /**
-                        int indexFreshmanStudent;
-                        int studentsCapacity = studentsList.Count;
-                        List<Student> studentsFreshmen = new List<Student>();
-
-                        foreach (Student s in studentsList)
-                        {
-                            indexFreshmanStudent = studentsCopy1.FindIndex(new FindStudentStatus("Freshman").FindStudentStatusPredicate);
-                            if (indexFreshmanStudent < studentsList.Count)
-                            {
-                                studentsFreshmen.Add(new Student(studentsList[indexFreshmanStudent]));
-                                studentsCopy1.RemoveAt(indexFreshmanStudent);
-                            }
-                            
-                        }
-                        
                         Console.WriteLine("List of freshmen students...");
-                        foreach (Student s in studentsFreshmen) Console.WriteLine(s);
-                        Console.WriteLine("\n");
-                        **/
+                        var lookupStatus = studentsList.ToLookup(s => s._Status);
+                        foreach (Student s in lookupStatus["Freshman"]) Console.WriteLine(s);
 
                         //second search by state
-                        //List<Student> studentsNY = (List<Student>)students.ToLookup(s => s._State == "NY");
-                        /**
-                        int indexNYStudent;
-                        List<Student> studentsNY = new List<Student>();
-                        for (int i = 0; i < studentsCapacity; i++)
-                        {
-                            indexNYStudent = studentsCopy2.FindIndex(new FindStudentState("NY").FindStudentStatePredicate);
-                            studentsFreshmen.Add(new Student(studentsList[indexNYStudent]));
-                            studentsCopy2.RemoveAt(indexNYStudent);
-                        }
-                        Console.WriteLine("List of NY students...");
-                        foreach (Student s in studentsNY) Console.WriteLine(s);
-                        Console.WriteLine("\n");
-                        **/
+                        Console.WriteLine("\nList of NY students...");
+                        var lookupState = studentsList.ToLookup(s => s._State);
+                        foreach (Student s in lookupState["NY"]) Console.WriteLine(s);
+
                         break;
 
                     case 2:
@@ -150,10 +107,19 @@ namespace BCS_426_Mod_9
                         studentsDictionary.Add(1001, new Student(1001, "Samantha Green", "Junior", "MD"));
                         studentsDictionary.Add(4004, new Student(4004, "NO_NAME", "Junior", "NJ"));
                         studentsDictionary.Add(1000, new Student(1000, "NO_NAME", "Freshman", "NJ"));
-                        
-                        //print list
+
+                        //list all student data
                         Console.WriteLine("List of students...");
                         foreach (Student s in studentsDictionary.Values) Console.WriteLine(s);
+                        Console.WriteLine("\n");
+
+                        //list all student data sorted by ID
+                        //List<KeyValuePair<int, Student>> sortList = studentsDictionary.ToList();
+                        //var studentsSortedDictionary = from entry in studentsDictionary orderedby entry.Key ascending select entry;
+
+
+                        Console.WriteLine("List of students sorted by ID...");
+                        //foreach (Student s in studentsSortedList.Values) Console.WriteLine(s);
                         Console.WriteLine("\n");
 
                         /**
