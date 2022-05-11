@@ -184,23 +184,5 @@ namespace BCS_426_Mod_9
                 throw new NotImplementedException();
             }
         }
-
-        public class FindStudentStatus
-        {
-            private string _Status;
-
-            public FindStudentStatus(string status) => _Status = status;
-
-            public bool FindStudentStatusPredicate(Student student) => student?._Status == _Status;
-        }
-
-        public class FindStudentState
-        {
-            private string _State;
-
-            public FindStudentState(string state) => _State = state;
-
-            public bool FindStudentStatePredicate(Student student) => student?._Status == _State;
-        }
     }
 }
