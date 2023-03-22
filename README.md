@@ -6,6 +6,14 @@
 
 ![outputmenu](images/outputMenu.png)
 
+## Assignment Context
+
+This project was one of the later assignments for my C# Programming class.
+
+The goal of this assignment was to further explore C# by using lists, sorted lists, and ToLookup.
+
+This was a solo assignment made with C#, and Visual Studio 2022.
+
 ## Features
 
 This program demonstrates the use of three different collection classes in .NET Framework for storing and searching student data. 
